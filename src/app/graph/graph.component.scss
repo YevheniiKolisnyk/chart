@@ -11,9 +11,10 @@
 
   .green {
     background-color: #BFEDE0;
-    color: #ffffff;
+    color: #000000;
   }
 }
+
 @mixin primaryThemes {
   .light {
     background-color: #ffffff;
@@ -27,6 +28,7 @@
     background-color: #A0E4D2;
   }
 }
+
 @mixin fontThemes {
   .light {
     color: #000000;
@@ -40,6 +42,7 @@
     color: #ffffff;
   }
 }
+
 * {
   margin: 0;
   padding: 0;
@@ -82,7 +85,7 @@ main {
     }
 
     .green {
-      color: #ffffff;
+      color: #000000;
     }
 
     .buttons {
@@ -101,7 +104,7 @@ main {
         cursor: pointer;
       }
 
- @include middleThemes();
+      @include middleThemes();
     }
   }
 
@@ -138,6 +141,9 @@ main {
             user-select: none;
             padding: 10px;
             border-right: 1px solid;
+            .material-icons {
+              vertical-align: middle;
+            }
 
 
             &:last-child {
@@ -184,9 +190,14 @@ main {
 
       input {
         margin-right: 5px;
+        cursor: pointer;
       }
 
-@include fontThemes();
+      label {
+        cursor: pointer;
+      }
+
+      @include fontThemes();
     }
   }
 
