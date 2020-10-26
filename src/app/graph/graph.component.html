@@ -1,0 +1,220 @@
+<main [ngClass]="{light: light, dark: dark, green: green}">
+
+  <div class="theme">
+    <div *ngFor="let theme of themes; let idx = index" class="form-control">
+      <input
+        (change)=" changeThemeHandler($event)"
+        [attr.checked]="idx === 0 ? '' : null"
+        id="{{theme}}"
+        name="theme"
+        type="radio"
+        value="{{theme}}">
+      <label [ngClass]="{light: light, dark: dark, green: green}" for="{{theme}}">{{theme}}</label>
+    </div>
+  </div>
+
+  <div class="chart-container">
+    <div class="chart">
+      <ngx-charts-bar-vertical
+        [gradient]="gradient"
+        [results]="value"
+        [roundEdges]="roundEdges"
+        [scheme]="colorScheme"
+        [showXAxisLabel]="showXAxisLabel"
+        [showYAxisLabel]="showYAxisLabel"
+        [style]="{fill: dark ? 'white': 'black'}"
+        [xAxisLabel]="xAxisLabel"
+        [xAxis]="showXAxis"
+        [yAxisLabel]="yAxisLabel"
+        [yAxis]="showYAxis">
+      </ngx-charts-bar-vertical>
+    </div>
+
+    <h1 [ngClass]="{light: light, dark: dark, green: green}" class="btn-title">Display by:</h1>
+    <div class="buttons">
+      <button (click)="value = changes" [ngClass]="{light: light, dark: dark, green: green}">percent</button>
+      <button (click)="value = changesPerHour; tableData = changesPerHour"
+              [ngClass]="{light: light, dark: dark, green: green}">hour
+      </button>
+      <button (click)="value = changesPerDay; tableData = changesPerDay"
+              [ngClass]="{light: light, dark: dark, green: green}">day
+      </button>
+      <button (click)="value = changesPerWeek; tableData = changesPerWeek"
+              [ngClass]="{light: light, dark: dark, green: green}">week
+      </button>
+    </div>
+  </div>
+
+
+  <div class="table-container">
+    <input
+      (input)="filter($event)"
+      *ngIf="showPositionFilter"
+      [ngClass]="{light: light, dark: dark, green: green}"
+      class="filter-input"
+      placeholder="Position"
+      type="text">
+    <input
+      (input)="filter($event)"
+      *ngIf="showNameFilter"
+      [ngClass]="{light: light, dark: dark, green: green}"
+      class="filter-input"
+      placeholder="Name"
+      type="text">
+    <input
+      (input)="filter($event)"
+      *ngIf="showSymbolFilter"
+      [ngClass]="{light: light, dark: dark, green: green}"
+      class="filter-input"
+      placeholder="Symbol"
+      type="text">
+    <input
+      (input)="filter($event)"
+      *ngIf="showPercentFilter"
+      [ngClass]="{light: light, dark: dark, green: green}"
+      class="filter-input"
+      placeholder="Percent"
+      type="text">
+
+    <div [ngClass]="{light: light, dark: dark, green: green}" class="responsive-filter">
+      <div class="filter-btn">
+        <p [ngClass]="{light: light, dark: dark, green: green}" class="filter-title">№</p>
+        <span
+          (click)="sort('position')"
+          *ngIf="!sorted.position"
+          class="material-icons"
+        >north</span>
+        <span
+          (click)="sort('position')"
+          *ngIf="sorted.position"
+          class="material-icons"
+        >south</span>
+        <span (click)="openFilter('position')" class="material-icons">filter_alt</span>
+      </div>
+
+      <div class="filter-btn">
+        <p class="filter-title">Name</p>
+        <span
+          (click)="sort('name')"
+          *ngIf="!sorted.name"
+          class="material-icons"
+        >north</span>
+        <span
+          (click)="sort('name')"
+          *ngIf="sorted.name"
+          class="material-icons"
+        >south</span>
+        <span (click)="openFilter('name')" class="material-icons">filter_alt</span>
+      </div>
+
+      <div class="filter-btn">
+        <p class="filter-title">Symbol</p>
+        <span
+          (click)="sort('symbol')"
+          *ngIf="!sorted.symbol"
+          class="material-icons"
+        >north</span>
+        <span
+          (click)="sort('symbol')"
+          *ngIf="sorted.symbol"
+          class="material-icons"
+        >south</span>
+        <span (click)="openFilter('symbol')" class="material-icons">filter_alt</span>
+      </div>
+
+      <div class="filter-btn">
+        <p class="filter-title">Percent</p>
+        <span
+          (click)="sort('value')"
+          *ngIf="!sorted.value"
+          class="material-icons"
+        >north</span>
+        <span
+          (click)="sort('value')"
+          *ngIf="sorted.value"
+          class="material-icons"
+        >south</span>
+        <span (click)="openFilter('value')" class="material-icons">filter_alt</span>
+      </div>
+    </div>
+
+
+    <table>
+      <thead [ngClass]="{light: light, dark: dark, green: green}">
+      <tr>
+        <th>
+          №
+          <span
+            (click)="sort('position')"
+            *ngIf="!sorted.position"
+            class="material-icons"
+          >north</span>
+          <span
+            (click)="sort('position')"
+            *ngIf="sorted.position"
+            class="material-icons"
+          >south</span>
+          <span (click)="openFilter('position')" class="material-icons">filter_alt</span>
+        </th>
+
+        <th>
+          Name
+          <span
+            (click)="sort('name')"
+            *ngIf="!sorted.name"
+            class="material-icons"
+          >north</span>
+          <span
+            (click)="sort('name')"
+            *ngIf="sorted.name"
+            class="material-icons"
+          >south</span>
+          <span (click)="openFilter('name')" class="material-icons filter-btn">filter_alt</span>
+        </th>
+
+        <th>
+          Symbol
+          <span
+            (click)="sort('symbol')"
+            *ngIf="!sorted.symbol"
+            class="material-icons"
+          >north</span>
+          <span
+            (click)="sort('symbol')"
+            *ngIf="sorted.symbol"
+            class="material-icons"
+          >south</span>
+          <span (click)="openFilter('symbol')" class="material-icons filter-btn">filter_alt</span>
+        </th>
+
+        <th>
+          Percent
+          <span
+            (click)="sort('value')"
+            *ngIf="!sorted.value"
+            class="material-icons"
+          >north</span>
+          <span
+            (click)="sort('value')"
+            *ngIf="sorted.value"
+            class="material-icons"
+          >south</span>
+          <span (click)="openFilter('value')" class="material-icons filter-btn">filter_alt</span>
+        </th>
+      </tr>
+      </thead>
+
+      <tbody [ngClass]="{light: light, dark: dark, green: green}">
+      <tr *ngFor="let item of tableData">
+        <th data-label="position">{{item.position}}</th>
+        <th data-label="name">{{item.name}}</th>
+        <th data-label="symbol">{{item.symbol}}</th>
+        <th data-label="percent">{{item.value}}</th>
+      </tr>
+      </tbody>
+    </table>
+    <div *ngIf="!tableData.length" class="error">
+      <p>Not found</p>
+    </div>
+  </div>
+</main>
