@@ -213,7 +213,7 @@
       </tr>
       </tbody>
     </table>
-    <div *ngIf="!tableData.length" class="error">
+    <div *ngIf="!tableData.length" [ngClass]="{light: light, dark: dark, green: green}" class="error">
       <p>Not found</p>
     </div>
   </div>
