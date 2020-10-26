@@ -143,13 +143,6 @@ export class GraphComponent implements OnInit {
     }
   }
 
-  closeFilters() {
-    this.showPositionFilter = false;
-    this.showNameFilter = false;
-    this.showSymbolFilter = false;
-    this.showPercentFilter = false;
-  }
-
   changeThemeHandler(event) {
     switch (event.target.value) {
       case 'light':
